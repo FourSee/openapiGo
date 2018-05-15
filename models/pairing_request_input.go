@@ -16,21 +16,15 @@ import (
 // swagger:model PairingRequestInput
 type PairingRequestInput struct {
 
-	// device info
-	DeviceInfo *PairingRequestInputDeviceInfo `json:"device_info,omitempty"`
-
-	// device name
-	DeviceName string `json:"device_name,omitempty"`
-
-	// public key
-	PublicKey string `json:"public_key,omitempty"`
+	// pairing request
+	PairingRequest *PairingRequestInputPairingRequest `json:"pairing_request,omitempty"`
 }
 
 // Validate validates this pairing request input
 func (m *PairingRequestInput) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateDeviceInfo(formats); err != nil {
+	if err := m.validatePairingRequest(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -40,16 +34,16 @@ func (m *PairingRequestInput) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *PairingRequestInput) validateDeviceInfo(formats strfmt.Registry) error {
+func (m *PairingRequestInput) validatePairingRequest(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.DeviceInfo) { // not required
+	if swag.IsZero(m.PairingRequest) { // not required
 		return nil
 	}
 
-	if m.DeviceInfo != nil {
-		if err := m.DeviceInfo.Validate(formats); err != nil {
+	if m.PairingRequest != nil {
+		if err := m.PairingRequest.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("device_info")
+				return ve.ValidateName("pairing_request")
 			}
 			return err
 		}
