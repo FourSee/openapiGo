@@ -68,7 +68,7 @@ func (a *Client) GetPairingRequest(params *GetPairingRequestParams) (*GetPairing
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getPairingRequest",
 		Method:             "GET",
-		PathPattern:        "/pairing_requests{id}",
+		PathPattern:        "/pairing_requests/{id}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},

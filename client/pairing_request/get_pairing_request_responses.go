@@ -72,7 +72,7 @@ type GetPairingRequestOK struct {
 }
 
 func (o *GetPairingRequestOK) Error() string {
-	return fmt.Sprintf("[GET /pairing_requests{id}][%d] getPairingRequestOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /pairing_requests/{id}][%d] getPairingRequestOK  %+v", 200, o.Payload)
 }
 
 func (o *GetPairingRequestOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -100,7 +100,7 @@ type GetPairingRequestUnauthorized struct {
 }
 
 func (o *GetPairingRequestUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /pairing_requests{id}][%d] getPairingRequestUnauthorized ", 401)
+	return fmt.Sprintf("[GET /pairing_requests/{id}][%d] getPairingRequestUnauthorized ", 401)
 }
 
 func (o *GetPairingRequestUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -121,7 +121,7 @@ type GetPairingRequestForbidden struct {
 }
 
 func (o *GetPairingRequestForbidden) Error() string {
-	return fmt.Sprintf("[GET /pairing_requests{id}][%d] getPairingRequestForbidden ", 403)
+	return fmt.Sprintf("[GET /pairing_requests/{id}][%d] getPairingRequestForbidden ", 403)
 }
 
 func (o *GetPairingRequestForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -142,7 +142,7 @@ type GetPairingRequestInternalServerError struct {
 }
 
 func (o *GetPairingRequestInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /pairing_requests{id}][%d] getPairingRequestInternalServerError ", 500)
+	return fmt.Sprintf("[GET /pairing_requests/{id}][%d] getPairingRequestInternalServerError ", 500)
 }
 
 func (o *GetPairingRequestInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
