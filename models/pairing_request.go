@@ -21,7 +21,7 @@ type PairingRequest struct {
 	AcceptURL string `json:"accept_url,omitempty"`
 
 	// accepted crypto key
-	AcceptedCryptoKey *CryptoKey `json:"accepted_crypto_key,omitempty"`
+	AcceptedCryptoKey string `json:"accepted_crypto_key,omitempty"`
 
 	// created at
 	// Format: date-time
@@ -52,10 +52,6 @@ type PairingRequest struct {
 func (m *PairingRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateAcceptedCryptoKey(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateCreatedAt(formats); err != nil {
 		res = append(res, err)
 	}
@@ -71,24 +67,6 @@ func (m *PairingRequest) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *PairingRequest) validateAcceptedCryptoKey(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.AcceptedCryptoKey) { // not required
-		return nil
-	}
-
-	if m.AcceptedCryptoKey != nil {
-		if err := m.AcceptedCryptoKey.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("accepted_crypto_key")
-			}
-			return err
-		}
-	}
-
 	return nil
 }
 
