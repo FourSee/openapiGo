@@ -18,6 +18,9 @@ type PairingRequestCreateResponse struct {
 	// accept url
 	AcceptURL string `json:"accept_url,omitempty"`
 
+	// id
+	ID string `json:"id,omitempty"`
+
 	// show url
 	ShowURL string `json:"show_url,omitempty"`
 }
