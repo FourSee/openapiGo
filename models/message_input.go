@@ -10,37 +10,21 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 )
 
 // MessageInput message input
 // swagger:model MessageInput
 type MessageInput struct {
 
-	// content
-	// Required: true
-	Content *string `json:"content"`
-
-	// exit code
-	ExitCode int64 `json:"exit_code,omitempty"`
-
-	// signature
-	// Required: true
-	Signature *string `json:"signature"`
-
-	// title
-	Title string `json:"title,omitempty"`
+	// message
+	Message *MessageInputMessage `json:"message,omitempty"`
 }
 
 // Validate validates this message input
 func (m *MessageInput) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateContent(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateSignature(formats); err != nil {
+	if err := m.validateMessage(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -50,19 +34,19 @@ func (m *MessageInput) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *MessageInput) validateContent(formats strfmt.Registry) error {
+func (m *MessageInput) validateMessage(formats strfmt.Registry) error {
 
-	if err := validate.Required("content", "body", m.Content); err != nil {
-		return err
+	if swag.IsZero(m.Message) { // not required
+		return nil
 	}
 
-	return nil
-}
-
-func (m *MessageInput) validateSignature(formats strfmt.Registry) error {
-
-	if err := validate.Required("signature", "body", m.Signature); err != nil {
-		return err
+	if m.Message != nil {
+		if err := m.Message.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("message")
+			}
+			return err
+		}
 	}
 
 	return nil

@@ -54,6 +54,36 @@ func (a *Client) CreatePairingRequest(params *CreatePairingRequestParams) (*Crea
 
 }
 
+/*
+GetPairingRequest gets a pairing request
+
+Gets a pairing request. Assumed to be done by the PolyRhythym agent
+*/
+func (a *Client) GetPairingRequest(params *GetPairingRequestParams) (*GetPairingRequestOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetPairingRequestParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getPairingRequest",
+		Method:             "GET",
+		PathPattern:        "/pairing_requests{id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &GetPairingRequestReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetPairingRequestOK), nil
+
+}
+
 // SetTransport changes the transport on the client
 func (a *Client) SetTransport(transport runtime.ClientTransport) {
 	a.transport = transport
