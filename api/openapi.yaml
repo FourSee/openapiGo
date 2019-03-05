@@ -1,0 +1,950 @@
+openapi: 3.0.2
+info:
+  title: PolyRhythm
+  version: "1"
+servers:
+- url: https://{domain}:{port}/v1
+  variables:
+    domain:
+      default: foursee-polyrhythm.herokuapp.com
+    port:
+      default: "443"
+security:
+- Auth0:
+  - openid
+  - profile
+  - email
+paths:
+  /pairing_requests/{pairingRequestId}:
+    delete:
+      description: Deletes an existing `PairingRequest`.
+      operationId: deletePairingRequest
+      parameters:
+      - description: A unique identifier for a `PairingRequest`.
+        explode: false
+        in: path
+        name: pairingRequestId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        204:
+          description: Successful response.
+      summary: Delete a PairingRequest
+      tags:
+      - PairingRequests
+    description: The REST endpoint/path used to get, update, and delete single instances of an `PairingRequest`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively.
+    get:
+      description: Gets the details of a single instance of a `PairingRequest`.
+      operationId: getPairingRequest
+      parameters:
+      - description: A unique identifier for a `PairingRequest`.
+        explode: false
+        in: path
+        name: pairingRequestId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PairingRequest'
+          description: Successful response - returns a single `PairingRequest`.
+      summary: Get a PairingRequest
+      tags:
+      - PairingRequests
+    put:
+      description: Updates an existing `PairingRequest`.
+      operationId: updatePairingRequest
+      parameters:
+      - description: A unique identifier for a `PairingRequest`.
+        explode: false
+        in: path
+        name: pairingRequestId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PairingRequest'
+        description: Updated `PairingRequest` information.
+        required: true
+      responses:
+        202:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PairingRequest'
+          description: Successful response.
+      summary: Update a PairingRequest
+      tags:
+      - PairingRequests
+    summary: Path used to manage a single PairingRequest.
+  /users:
+    description: The REST endpoint/path used to list and create zero or more `User` entities.  This path contains a `GET` and `POST` operation to perform the list and create tasks, respectively.
+    get:
+      description: Gets a list of all `User` entities.
+      operationId: getUsers
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/User'
+                type: array
+          description: Successful response - returns an array of `User` entities.
+      summary: List All Users
+      tags:
+      - Users
+    post:
+      description: Creates a new instance of a `User`.
+      operationId: createUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        description: A new `User` to be created.
+        required: true
+      responses:
+        201:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: Successful response.
+      summary: Create a User
+      tags:
+      - Users
+    summary: Path used to manage the list of Users.
+  /users/{userId}:
+    delete:
+      description: Deletes an existing `User`.
+      operationId: deleteUser
+      parameters:
+      - description: A unique identifier for a `User`.
+        explode: false
+        in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        204:
+          description: Successful response.
+      summary: Delete a User
+      tags:
+      - Users
+    description: The REST endpoint/path used to get, update, and delete single instances of an `User`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively.
+    get:
+      description: Gets the details of a single instance of a `User`.
+      operationId: getUser
+      parameters:
+      - description: A unique identifier for a `User`.
+        explode: false
+        in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: Successful response - returns a single `User`.
+      summary: Get a User
+      tags:
+      - Users
+    put:
+      description: Updates an existing `User`.
+      operationId: updateUser
+      parameters:
+      - description: A unique identifier for a `User`.
+        explode: false
+        in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        description: Updated `User` information.
+        required: true
+      responses:
+        202:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: Successful response.
+      summary: Update a User
+      tags:
+      - Users
+    summary: Path used to manage a single User.
+  /devices:
+    description: The REST endpoint/path used to list and create zero or more `Device` entities.  This path contains a `GET` and `POST` operation to perform the list and create tasks, respectively.
+    get:
+      description: Gets a list of all `Device` entities.
+      operationId: getDevices
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DevicesList'
+          description: Successful response - returns an array of `Device` entities.
+      summary: List All Devices
+      tags:
+      - Devices
+    post:
+      description: Creates a new instance of a `Device`.
+      operationId: createDevice
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Device'
+        description: A new `Device` to be created.
+        required: true
+      responses:
+        201:
+          description: Successful response.
+      summary: Create a Device
+      tags:
+      - Devices
+    summary: Path used to manage the list of Devices.
+  /devices/{deviceId}:
+    delete:
+      description: Deletes an existing `Device`.
+      operationId: deleteDevice
+      parameters:
+      - description: A unique identifier for a `Device`.
+        explode: false
+        in: path
+        name: deviceId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        204:
+          description: Successful response.
+      security:
+      - agent_auth_key: []
+      summary: Delete a Device
+      tags:
+      - Devices
+    description: The REST endpoint/path used to get, update, and delete single instances of an `Device`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively.
+    get:
+      description: Gets the details of a single instance of a `Device`.
+      operationId: getDevice
+      parameters:
+      - description: A unique identifier for a `Device`.
+        explode: false
+        in: path
+        name: deviceId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Device'
+          description: Successful response - returns a single `Device`.
+      summary: Get a Device
+      tags:
+      - Devices
+    put:
+      description: Updates an existing `Device`.
+      operationId: updateDevice
+      parameters:
+      - description: A unique identifier for a `Device`.
+        explode: false
+        in: path
+        name: deviceId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Device'
+        description: Updated `Device` information.
+        required: true
+      responses:
+        202:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Device'
+          description: Successful response.
+      summary: Update a Device
+      tags:
+      - Devices
+    summary: Path used to manage a single Device.
+  /messages/{messageId}:
+    delete:
+      description: Deletes an existing `Message`.
+      operationId: deleteMessage
+      parameters:
+      - description: A unique identifier for a `Message`.
+        explode: false
+        in: path
+        name: messageId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        204:
+          description: Successful response.
+      summary: Delete a Message
+      tags:
+      - Messages
+    description: The REST endpoint/path used to get, update, and delete single instances of an `Message`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively.
+    get:
+      description: Gets the details of a single instance of a `Message`.
+      operationId: getMessage
+      parameters:
+      - description: A unique identifier for a `Message`.
+        explode: false
+        in: path
+        name: messageId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+          description: Successful response - returns a single `Message`.
+      summary: Get a Message
+      tags:
+      - Messages
+    summary: Path used to manage a single Message.
+  /messages:
+    description: The REST endpoint/path used to list and create zero or more `Message` entities.  This path contains a `GET` and `POST` operation to perform the list and create tasks, respectively.
+    get:
+      description: Gets a list of all `Message` entities.
+      operationId: getMessages
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessagesList'
+          description: Successful response - returns an array of `Message` entities and `PaginationData`.
+      summary: List All Messages
+      tags:
+      - Messages
+    post:
+      description: Creates a new instance of a `Message`.
+      operationId: createMessage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Message'
+        description: A new `Message` to be created.
+        required: true
+      responses:
+        201:
+          description: Successful response.
+      security:
+      - agent_auth_key: []
+      summary: Create a Message
+      tags:
+      - Messages
+    summary: Path used to manage the list of Messages.
+  /pairing_requests:
+    description: The REST endpoint/path used to list and create zero or more `PairingRequest` entities.  This path contains a `GET` and `POST` operation to perform the list and create tasks, respectively.
+    get:
+      description: Gets a list of all `PairingRequest` entities.
+      operationId: getPairingRequests
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PairingRequestsList'
+          description: Successful response - returns an array of `PairingRequest` entities.
+      summary: List All PairingRequests
+      tags:
+      - PairingRequests
+    post:
+      description: Creates a new instance of a `PairingRequest`.
+      operationId: createPairingRequest
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PairingRequestCreate'
+        description: A new `PairingRequest` to be created.
+        required: true
+      responses:
+        201:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PairingRequest'
+          description: Successful response.
+          headers:
+            Agent-Auth-Key:
+              description: This agent's auth key. Will be required for checking pairing status, or sending messages
+              explode: false
+              schema:
+                type: string
+              style: simple
+      security:
+      - {}
+      summary: Create a PairingRequest
+      tags:
+      - PairingRequests
+    summary: Path used to manage the list of PairingRequests.
+  /pairings/{pairingId}:
+    delete:
+      description: Deletes an existing `Pairing`.
+      operationId: deletePairing
+      parameters:
+      - description: A unique identifier for a `Pairing`.
+        explode: false
+        in: path
+        name: pairingId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        204:
+          description: Successful response.
+      summary: Delete a Pairing
+      tags:
+      - Pairings
+    description: The REST endpoint/path used to get, update, and delete single instances of an `Pairing`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively.
+    get:
+      description: Gets the details of a single instance of a `Pairing`.
+      operationId: getPairing
+      parameters:
+      - description: A unique identifier for a `Pairing`.
+        explode: false
+        in: path
+        name: pairingId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pairing'
+          description: Successful response - returns a single `Pairing`.
+      summary: Get a Pairing
+      tags:
+      - Pairings
+    put:
+      description: Updates an existing `Pairing`.
+      operationId: updatePairing
+      parameters:
+      - description: A unique identifier for a `Pairing`.
+        explode: false
+        in: path
+        name: pairingId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pairing'
+        description: Updated `Pairing` information.
+        required: true
+      responses:
+        202:
+          description: Successful response.
+      summary: Update a Pairing
+      tags:
+      - Pairings
+    summary: Path used to manage a single Pairing.
+  /pairings:
+    description: The REST endpoint/path used to list and create zero or more `Pairing` entities.  This path contains a `GET` and `POST` operation to perform the list and create tasks, respectively.
+    get:
+      description: Gets a list of all `Pairing` entities.
+      operationId: getPairings
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PairingsList'
+          description: Successful response - returns an array of `Pairing` entities.
+      summary: List All Pairings
+      tags:
+      - Pairings
+    post:
+      description: Creates a new instance of a `Pairing`.
+      operationId: createPairing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pairing'
+        description: A new `Pairing` to be created.
+        required: true
+      responses:
+        201:
+          description: Successful response.
+      summary: Create a Pairing
+      tags:
+      - Pairings
+    summary: Path used to manage the list of Pairings.
+components:
+  parameters:
+    PathUser:
+      explode: false
+      in: path
+      name: userId
+      required: true
+      schema:
+        format: uuid
+        type: string
+      style: simple
+  schemas:
+    PairingRequest:
+      description: The root of the PairingRequest type's schema.
+      example: |-
+        {
+          "id": "12db5e50-92bc-423f-86cd-ed85335527de",
+          "device_name": "user@hostname.org",
+          "short_id": "abcdef123456789ABCD",
+          "status": "accepted",
+          "accepted_crypto_key": "string",
+          "created_at": "2016-04-16T16:06:05Z",
+          "accept_url": "polyrhythm://pr/abcdef123456789ABCD",
+          "ip_address": "1.0.0.1"
+        }
+      properties:
+        id:
+          description: Unique ID for this pairing request.
+          type: string
+        device_name:
+          description: |-
+            Ideally, a human-readable name for the device that created the pairing request.
+
+            Will default to using the `hostname`.
+          type: string
+        short_id:
+          description: A URL-safe base62-encoded representation of the ID
+          type: string
+        status:
+          description: Status of the pairing request
+          enum:
+          - pending
+          - accepted
+          - rejected
+          type: string
+        accepted_crypto_key:
+          description: If this pairing request has been accepted, this will be the base64 encoded public cyrpto key of the device that accepted the pairing reques.
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        accept_url:
+          description: |-
+            The URL to accept this pairing request.
+
+            Will use the `polyrhythm` scheme, and follow this pattern: `polyrhythm://pr/{short_id}`
+          type: string
+        ip_address:
+          description: IP address where the pairing request came from.
+          type: string
+      required:
+      - accept_url
+      - created_at
+      - device_name
+      - id
+      - ip_address
+      - short_id
+      - status
+      title: Root Type for PairingRequest
+      type: object
+    Device:
+      description: The root of the Device type's schema.
+      example: |-
+        {
+            "id": "12db5e50-92bc-423f-86cd-ed85335527de",
+            "user_id": "12db5e50-92bc-423f-86cd-ed85335527de",
+            "name": "root@gserver",
+            "public_key": "base64encodedopenpgpkey....",
+            "device_type": "non_push"
+        }
+      properties:
+        id:
+          type: string
+        user_id:
+          type: string
+        name:
+          type: string
+        public_key:
+          type: string
+        device_type:
+          enum:
+          - android
+          - ios
+          - non_push
+          type: string
+        push_token:
+          description: An optional push token. Server will never respond with this. It is only used to create/update push notification credentials.
+          type: string
+      required:
+      - device_type
+      - name
+      - public_key
+      - user_id
+      title: Root Type for Device
+      type: object
+    PairingRequestCreate:
+      description: Used to create a PairingRequest
+      example: |-
+        {
+            "public_key": "vtcDirIAlY+c1b3rhqHNjDS14hzbd/OGQhpqx01UQ1k=",
+            "platform": "non_push",
+            "device_name": "root@hostname"
+        }
+      properties:
+        public_key:
+          description: A base64 encoded public key
+          type: string
+        platform:
+          description: For now, must be `non_push`. Only non-push devices can initiate a pairing request.
+          enum:
+          - android
+          - ios
+          - non_push
+          type: string
+        device_name:
+          description: A user-friendly device name
+          type: string
+      required:
+      - device_name
+      - platform
+      - public_key
+      title: Root Type for PairingRequest
+      type: object
+    PaginationData:
+      description: The root of the PaginationData type's schema.
+      example: |-
+        {
+            "page": 1,
+            "total_pages": 10,
+            "total_items": 100,
+            "per_page": 10,
+            "next_page": 2
+        }
+      properties:
+        page:
+          format: int32
+          type: integer
+        total_pages:
+          format: int32
+          type: integer
+        total_items:
+          format: int32
+          type: integer
+        per_page:
+          format: int32
+          type: integer
+        next_page:
+          format: int32
+          type: integer
+      required:
+      - next_page
+      - page
+      - per_page
+      - total_items
+      - total_pages
+      title: Root Type for PaginationData
+      type: object
+    Message:
+      description: The root of the Message type's schema.
+      example: |-
+        {
+            "id": "7ebb92e0-7f31-4b49-a062-0f2357bfdc23",
+            "content": "YnfiV9atijBihMoEq/7ZlbvRFC7V9BfIlwR8UlBZvFVCfj1rocwySbWy3cqbBHIQ0LS/y6JMXJJ16ankIRV+Ow3cCzBPJ+M=",
+            "exit_code": 1,
+            "sender_id": "12960562-0ef5-4a34-957a-72ecfab38164",
+            "reciever_ids": ["f150ffe0-2637-4f55-bb89-78ca746e0d44"],
+            "title": "-- no title --"
+        }
+      properties:
+        id:
+          format: uuid
+          type: string
+        content:
+          description: An encrypted payload representing the content.
+          type: string
+        exit_code:
+          description: Exit code, if provided
+          format: int32
+          type: integer
+        sender_id:
+          description: Device ID of the sender
+          format: uuid
+          type: string
+        reciever_id:
+          description: Recipient device IDs
+          format: uuid
+          type: string
+        title:
+          description: Plaintext title. Required to be plaintext due to mobile limitations on display text
+          type: string
+      required:
+      - content
+      - id
+      - reciever_id
+      - sender_id
+      - title
+      title: Root Type for Message
+      type: object
+    PairingRequestsList:
+      example: |-
+        {
+            "pairing_requests": [
+                {
+                    "id": "some text",
+                    "device_name": "some server",
+                    "short_id": "some text",
+                    "status": "pending",
+                    "accepted_crypto_key": "some text",
+                    "created_at": "2018-02-10T09:30Z",
+                    "accept_url": "some text",
+                    "ip_address": "some text"
+                },
+                {
+                    "id": "some text",
+                    "device_name": "another server",
+                    "short_id": "some text",
+                    "status": "accepted",
+                    "accepted_crypto_key": "some text",
+                    "created_at": "2018-02-10T09:30Z",
+                    "accept_url": "some text",
+                    "ip_address": "some text"
+                }
+            ],
+            "pagination": {
+                "page": 44,
+                "total_pages": 26,
+                "total_items": 73,
+                "per_page": 10,
+                "next_page": 12
+            }
+        }
+      properties:
+        pairing_requests:
+          items:
+            $ref: '#/components/schemas/PairingRequest'
+          type: array
+        pagination:
+          $ref: '#/components/schemas/PaginationData'
+      required:
+      - pagination
+      - pairing_requests
+      type: object
+    DevicesList:
+      example: |-
+        {
+            "messages": [
+                {
+                    "id": "",
+                    "content": "some text",
+                    "exit_code": 35,
+                    "sender_id": "",
+                    "reciever_ids": [
+                        "",
+                        ""
+                    ],
+                    "title": "some text"
+                },
+                {
+                    "id": "",
+                    "content": "some text",
+                    "exit_code": 65,
+                    "sender_id": "",
+                    "reciever_ids": [
+                        "",
+                        ""
+                    ],
+                    "title": "some text"
+                }
+            ],
+            "pagination": {
+                "page": 1,
+                "total_pages": 85,
+                "total_items": 72,
+                "per_page": 20,
+                "next_page": 53
+            }
+        }
+      properties:
+        messages:
+          items:
+            $ref: '#/components/schemas/Message'
+          type: array
+        pagination:
+          $ref: '#/components/schemas/PaginationData'
+      required:
+      - messages
+      - pagination
+      type: object
+    MessagesList:
+      example: |-
+        {
+            "devices": [
+                {
+                    "id": "some text",
+                    "user_id": "some text",
+                    "name": "some text",
+                    "created_at": "2018-02-10T09:30Z",
+                    "public_key": "some text",
+                    "device_type": {}
+                },
+                {
+                    "id": "some text",
+                    "user_id": "some text",
+                    "name": "some text",
+                    "created_at": "2018-02-10T09:30Z",
+                    "public_key": "some text",
+                    "device_type": {}
+                }
+            ],
+            "pagination": {
+                "page": 44,
+                "total_pages": 42,
+                "total_items": 25,
+                "per_page": 60,
+                "next_page": 90
+            }
+        }
+      properties:
+        devices:
+          items:
+            $ref: '#/components/schemas/Message'
+          type: array
+        pagination:
+          $ref: '#/components/schemas/PaginationData'
+      required:
+      - devices
+      - pagination
+      type: object
+    User:
+      description: The root of the User type's schema.
+      example: |-
+        {
+            "id": "12db5e50-92bc-423f-86cd-ed85335527de",
+            "email": "jason.mendoza@jaguars.com"
+        }
+      properties:
+        id:
+          format: uuid
+          type: string
+        email:
+          format: email
+          type: string
+      required:
+      - email
+      - id
+      title: Root Type for User
+      type: object
+    Pairing:
+      description: The root of the Pairing type's schema.
+      example: |-
+        {
+            "paired_device_id": "9543703e-ba23-47a2-9c1e-cd6edb2843cc"
+        }
+      properties:
+        paired_device_id:
+          type: string
+      title: Root Type for Pairing
+      type: object
+    PairingsList:
+      example: |-
+        {
+            "devices": [
+                {
+                    "id": "some text",
+                    "user_id": "some text",
+                    "name": "some text",
+                    "created_at": "2018-02-10T09:30Z",
+                    "public_key": "some text",
+                    "device_type": {}
+                },
+                {
+                    "id": "some text",
+                    "user_id": "some text",
+                    "name": "some text",
+                    "created_at": "2018-02-10T09:30Z",
+                    "public_key": "some text",
+                    "device_type": {}
+                }
+            ],
+            "pagination": {
+                "page": 44,
+                "total_pages": 42,
+                "total_items": 25,
+                "per_page": 60,
+                "next_page": 90
+            }
+        }
+      properties:
+        pairings:
+          items:
+            $ref: '#/components/schemas/Pairing'
+          type: array
+        pagination:
+          $ref: '#/components/schemas/PaginationData'
+      required:
+      - pagination
+      - pairings
+      type: object
+  securitySchemes:
+    Auth0:
+      flows:
+        implicit:
+          authorizationUrl: https://polyrhythm.auth0.com/authorize
+          scopes:
+            openid: ""
+            profile: ""
+            email: ""
+      type: oauth2
+    agent_auth_key:
+      description: Used exclusively by agents to authenticate against the API
+      in: header
+      name: Agent-Auth-Key
+      type: apiKey
